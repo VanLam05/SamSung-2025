@@ -114,7 +114,7 @@ int dijkstra()
                 {
                     int nD = d + 2;
 
-                    if (dis[nx][ny] == 0 || dis[ny][ny] > nD)
+                    if (dis[nx][ny] == 0 || dis[nx][ny] > nD)
                     {
                         dis[nx][ny] = nD;
                         q.push({nD, nx, ny});
