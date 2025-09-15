@@ -1,4 +1,3 @@
-// Di chuyển trong mê cung, bản khó
 // #pragma GCC optimize("O3,unroll-loops")
 // #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 
@@ -70,9 +69,6 @@ bool isValid(int x, int y)
 
 #define ai3 array<int, 3>
 
-int dx[] = {-1, 0, 0, 1};
-int dy[] = {0, -1, 1, 0};
-
 int dijkstra()
 {
     min_heap<ai3> q;
@@ -88,31 +84,19 @@ int dijkstra()
         if (d != dis[x][y])
             continue;
 
-        FOR(dir, 0, 3)
-        {
-            int nx = x + dx[dir];
-            int ny = y + dy[dir];
-
-            if (isValid(nx, ny) && board[nx][ny] == '.')
-            {
-                if (dis[nx][ny] == 0 || dis[nx][ny] > d + 1)
-                {
-                    dis[nx][ny] = d + 1;
-                    q.push({dis[nx][ny], nx, ny});
-                }
-            }
-        }
-
         FOR(dirX, -2, 2)
         {
             FOR(dirY, -2, 2)
             {
+                if (dirX == 0 && dirY == 0)
+                    continue;
+
                 int nx = x + dirX;
                 int ny = y + dirY;
 
                 if (isValid(nx, ny) && board[nx][ny] == '.')
                 {
-                    int nD = d + 2;
+                    int nD = d + min(2, abs(nx - x) + abs(ny - y));
 
                     if (dis[nx][ny] == 0 || dis[nx][ny] > nD)
                     {
